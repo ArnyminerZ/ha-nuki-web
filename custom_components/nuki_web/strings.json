@@ -1,0 +1,37 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Connect to Nuki Web",
+                "description": "Please enter your Nuki Web API Token.",
+                "data": {
+                    "api_token": "API Token"
+                }
+            }
+        },
+        "error": {
+            "invalid_auth": "Invalid Authentication"
+        },
+        "abort": {
+            "already_configured": "Device is already configured"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "battery": {
+                "name": "Battery"
+            }
+        },
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Battery Critical"
+            },
+            "door": {
+                "name": "Door"
+            },
+            "ring_to_open": {
+                "name": "Ring to Open"
+            }
+        }
+    }
+}
