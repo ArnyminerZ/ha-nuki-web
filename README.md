@@ -2,6 +2,13 @@
 
 This is a custom integration for Home Assistant that interacts with the Nuki Web API. It allows you to view and control your Nuki Smart Locks and Openers directly from Home Assistant.
 
+> [!IMPORTANT]
+> This integration is not affiliated with or endorsed by Nuki.
+> It is a completely independent project, backed up by the community, and based on official documentation and APIs.
+
+> [!NOTE]
+> **Disclaimer:** this project has been generated mainly by AI. Even though it has been reviewed and tested by a professional programmer, I feel like it's important to disclose this fact.
+
 ## Features
 
 *   **Platform Support**:
