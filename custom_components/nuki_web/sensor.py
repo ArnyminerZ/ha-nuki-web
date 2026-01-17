@@ -9,6 +9,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import NukiWebCoordinator
+from .entity import NukiEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -27,38 +28,18 @@ async def async_setup_entry(
     
     async_add_entities(entities)
 
-class NukiBatterySensor(CoordinatorEntity, SensorEntity):
+class NukiBatterySensor(NukiEntity, SensorEntity):
     """Representation of a Nuki Web battery sensor."""
 
     def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
         """Initialize."""
-        super().__init__(coordinator)
-        self._smartlock_id = smartlock_id
+        super().__init__(coordinator, smartlock_id)
         self._attr_has_entity_name = True
         self._attr_translation_key = "battery"
         self._attr_unique_id = f"{smartlock_id}_battery"
         self._attr_device_class = SensorDeviceClass.BATTERY
         self._attr_state_class = SensorStateClass.MEASUREMENT
         self._attr_native_unit_of_measurement = "%"
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return super().available and self._smartlock_id in self.coordinator.data
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        if not self.available:
-            return None
-        data = self.coordinator.data[self._smartlock_id]
-        return {
-            "identifiers": {(DOMAIN, str(self._smartlock_id))},
-            "name": data["name"],
-            "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
-            "sw_version": str(data.get("firmwareVersion")),
-        }
 
     @property
     def native_value(self) -> int | None:

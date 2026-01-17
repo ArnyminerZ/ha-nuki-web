@@ -10,6 +10,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import NukiWebCoordinator
+from .entity import NukiEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -50,36 +51,16 @@ async def async_setup_entry(
     
     async_add_entities(entities)
 
-class NukiLockEntity(CoordinatorEntity, LockEntity):
+class NukiLockEntity(NukiEntity, LockEntity):
     """Representation of a Nuki Web lock."""
 
     def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
         """Initialize the lock."""
-        super().__init__(coordinator)
-        self._smartlock_id = smartlock_id
+        super().__init__(coordinator, smartlock_id)
         self._attr_has_entity_name = True
         self._attr_name = None
         self._attr_unique_id = f"{smartlock_id}_lock"
         self._attr_supported_features = LockEntityFeature.OPEN
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return super().available and self._smartlock_id in self.coordinator.data
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        if not self.available:
-            return None
-        data = self.coordinator.data[self._smartlock_id]
-        return {
-            "identifiers": {(DOMAIN, str(self._smartlock_id))},
-            "name": data["name"],
-            "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
-            "sw_version": str(data.get("firmwareVersion")),
-        }
 
     @property
     def is_locked(self) -> bool | None:

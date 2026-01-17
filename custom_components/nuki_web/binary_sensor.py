@@ -9,6 +9,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import NukiWebCoordinator
+from .entity import NukiEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -38,36 +39,16 @@ async def async_setup_entry(
     
     async_add_entities(entities)
 
-class NukiBatteryCriticalSensor(CoordinatorEntity, BinarySensorEntity):
+class NukiBatteryCriticalSensor(NukiEntity, BinarySensorEntity):
     """Representation of a Nuki Web battery critical sensor."""
 
     def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
         """Initialize."""
-        super().__init__(coordinator)
-        self._smartlock_id = smartlock_id
+        super().__init__(coordinator, smartlock_id)
         self._attr_has_entity_name = True
         self._attr_translation_key = "battery_critical"
         self._attr_unique_id = f"{smartlock_id}_battery_critical"
         self._attr_device_class = BinarySensorDeviceClass.BATTERY
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return super().available and self._smartlock_id in self.coordinator.data
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        if not self.available:
-            return None
-        data = self.coordinator.data[self._smartlock_id]
-        return {
-            "identifiers": {(DOMAIN, str(self._smartlock_id))},
-            "name": data["name"],
-            "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
-            "sw_version": str(data.get("firmwareVersion")),
-        }
 
     @property
     def is_on(self) -> bool | None:
@@ -77,36 +58,16 @@ class NukiBatteryCriticalSensor(CoordinatorEntity, BinarySensorEntity):
         data = self.coordinator.data[self._smartlock_id]
         return data["state"].get("batteryCritical")
 
-class NukiDoorSensor(CoordinatorEntity, BinarySensorEntity):
+class NukiDoorSensor(NukiEntity, BinarySensorEntity):
     """Representation of a Nuki Web door sensor."""
 
     def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
         """Initialize."""
-        super().__init__(coordinator)
-        self._smartlock_id = smartlock_id
+        super().__init__(coordinator, smartlock_id)
         self._attr_has_entity_name = True
         self._attr_translation_key = "door"
         self._attr_unique_id = f"{smartlock_id}_door"
         self._attr_device_class = BinarySensorDeviceClass.DOOR
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return super().available and self._smartlock_id in self.coordinator.data
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        if not self.available:
-            return None
-        data = self.coordinator.data[self._smartlock_id]
-        return {
-            "identifiers": {(DOMAIN, str(self._smartlock_id))},
-            "name": data["name"],
-            "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
-            "sw_version": str(data.get("firmwareVersion")),
-        }
 
     @property
     def is_on(self) -> bool | None:
@@ -121,36 +82,16 @@ class NukiDoorSensor(CoordinatorEntity, BinarySensorEntity):
             return False
         return None
 
-class NukiRingToOpenSensor(CoordinatorEntity, BinarySensorEntity):
+class NukiRingToOpenSensor(NukiEntity, BinarySensorEntity):
     """Representation of a Nuki Web Ring to Open sensor."""
 
     def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
         """Initialize."""
-        super().__init__(coordinator)
-        self._smartlock_id = smartlock_id
+        super().__init__(coordinator, smartlock_id)
         self._attr_has_entity_name = True
         self._attr_translation_key = "ring_to_open"
         self._attr_unique_id = f"{smartlock_id}_rto"
         # No specific device class, maybe RUNNING?
-        
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return super().available and self._smartlock_id in self.coordinator.data
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        if not self.available:
-            return None
-        data = self.coordinator.data[self._smartlock_id]
-        return {
-            "identifiers": {(DOMAIN, str(self._smartlock_id))},
-            "name": data["name"],
-            "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
-            "sw_version": str(data.get("firmwareVersion")),
-        }
 
     @property
     def is_on(self) -> bool | None:
