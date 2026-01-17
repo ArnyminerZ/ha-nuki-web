@@ -38,6 +38,21 @@ class NukiWebApi:
                 _LOGGER.error("Error sending action %s to %s: %s", action, smartlock_id, response.status)
                 response.raise_for_status()
             
+    async def update_smartlock_config(self, smartlock_id: int, **kwargs) -> None:
+        """Update smartlock config."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/config"
+        async with self._session.post(url, headers=self._headers, json=kwargs) as response:
+            if response.status != 204:
+                _LOGGER.error("Error updating config for %s: %s", smartlock_id, response.status)
+                response.raise_for_status()
+
+    async def update_smartlock_advanced_config(self, smartlock_id: int, **kwargs) -> None:
+        """Update smartlock advanced config."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/advanced/config"
+        async with self._session.post(url, headers=self._headers, json=kwargs) as response:
+            if response.status != 204:
+                _LOGGER.error("Error updating advanced config for %s: %s", smartlock_id, response.status)
+                response.raise_for_status()
     async def validate_token(self) -> bool:
         """Validate the API token by fetching accounts or smartlocks."""
         try:

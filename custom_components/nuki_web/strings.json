@@ -20,6 +20,15 @@
         "sensor": {
             "battery": {
                 "name": "Battery"
+            },
+            "capabilities": {
+                "name": "Capabilities"
+            },
+            "timezone_id": {
+                "name": "Timezone ID"
+            },
+            "timezone_offset": {
+                "name": "Timezone Offset"
             }
         },
         "binary_sensor": {
@@ -31,6 +40,91 @@
             },
             "ring_to_open": {
                 "name": "Ring to Open"
+            },
+            "fob_paired": {
+                "name": "Fob Paired"
+            }
+        },
+        "switch": {
+            "auto_unlatch": {
+                "name": "Auto Unlatch"
+            },
+            "lift_up_handle": {
+                "name": "Lift Up Handle"
+            },
+            "pairing_enabled": {
+                "name": "Pairing Enabled"
+            },
+            "button_enabled": {
+                "name": "Button Enabled"
+            },
+            "led_enabled": {
+                "name": "LED Enabled"
+            },
+            "auto_battery_detection": {
+                "name": "Auto Battery Detection"
+            },
+            "detached_cylinder": {
+                "name": "Detached Cylinder"
+            },
+            "auto_update_enabled": {
+                "name": "Auto Update Enabled"
+            },
+            "auto_lock": {
+                "name": "Auto Lock"
+            }
+        },
+        "number": {
+            "led_brightness": {
+                "name": "LED Brightness"
+            }
+        },
+        "select": {
+            "lng_timeout": {
+                "name": "Lock 'n' Go Timeout"
+            },
+            "unlatch_duration": {
+                "name": "Unlatch Duration"
+            },
+            "battery_type": {
+                "name": "Battery Type",
+                "state": {
+                    "alkali": "Alkali",
+                    "accumulator": "Accumulator",
+                    "lithium": "Lithium"
+                }
+            },
+            "single_button_action": {
+                "name": "Single Button Action",
+                "state": {
+                    "no_action": "No Action",
+                    "intelligent": "Intelligent",
+                    "unlock": "Unlock",
+                    "lock": "Lock",
+                    "unlatch": "Unlatch",
+                    "lock_n_go": "Lock 'n' Go",
+                    "show_status": "Show Status"
+                }
+            },
+            "double_button_action": {
+                "name": "Double Button Action",
+                "state": {
+                    "no_action": "No Action",
+                    "intelligent": "Intelligent",
+                    "unlock": "Unlock",
+                    "lock": "Lock",
+                    "unlatch": "Unlatch",
+                    "lock_n_go": "Lock 'n' Go",
+                    "show_status": "Show Status"
+                }
+            },
+            "motor_speed": {
+                "name": "Motor Speed",
+                "state": {
+                    "standard": "Standard",
+                    "fast": "Fast",
+                    "slow": "Slow"
+                }
             }
         }
     }
