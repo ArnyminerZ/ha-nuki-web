@@ -24,10 +24,20 @@ class NukiEntity(CoordinatorEntity, Entity):
         if not self.available:
             return None
         data = self.coordinator.data[self._smartlock_id]
+        
+        device_type = data.get("type")
+        device_type_name = {
+            0: "Smart Lock", # Keyturner
+            1: "Bridge", # Box
+            2: "Opener",
+            3: "Smart Door",
+            4: "Smart Lock 3.0/4. Gen",
+        }.get(device_type, f"Unknown ({device_type})")
+
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
             "name": data["name"],
             "manufacturer": "Nuki",
-            "model": f"Smart Lock Type {data.get('type')}",
+            "model": device_type_name,
             "sw_version": str(data.get("firmwareVersion")),
         }
