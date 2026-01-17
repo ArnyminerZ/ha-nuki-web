@@ -63,8 +63,15 @@ class NukiLockEntity(CoordinatorEntity, LockEntity):
         self._attr_supported_features = LockEntityFeature.OPEN
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self._smartlock_id in self.coordinator.data
+
+    @property
     def device_info(self):
         """Return device info."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
@@ -77,6 +84,8 @@ class NukiLockEntity(CoordinatorEntity, LockEntity):
     @property
     def is_locked(self) -> bool | None:
         """Return true if lock is locked."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"]["state"]
         type_id = data["type"]
@@ -89,6 +98,8 @@ class NukiLockEntity(CoordinatorEntity, LockEntity):
     @property
     def is_locking(self) -> bool | None:
         """Return true if lock is locking."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"]["state"]
         type_id = data["type"]
@@ -98,6 +109,8 @@ class NukiLockEntity(CoordinatorEntity, LockEntity):
     @property
     def is_unlocking(self) -> bool | None:
         """Return true if lock is unlocking."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"]["state"]
         type_id = data["type"]
@@ -107,6 +120,8 @@ class NukiLockEntity(CoordinatorEntity, LockEntity):
     @property
     def is_jammed(self) -> bool | None:
         """Return true if lock is jammed."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"]["state"]
         return state == STATE_MOTOR_BLOCKED

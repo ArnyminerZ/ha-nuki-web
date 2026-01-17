@@ -26,8 +26,29 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data[DOMAIN][entry.entry_id] = coordinator
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    
+    # Register update listener to reconcile devices on every update
+    coordinator.async_add_listener(lambda: _async_reconcile_devices(hass, coordinator, entry))
 
     return True
+
+def _async_reconcile_devices(hass: HomeAssistant, coordinator: NukiWebCoordinator, entry: ConfigEntry) -> None:
+    """Reconcile devices with the coordinator data."""
+    device_registry = hass.helpers.device_registry.async_get(hass)
+    devices =  hass.helpers.device_registry.async_entries_for_config_entry(device_registry, entry.entry_id)
+    
+    # Coordinator data is a dict of smartlock_id -> data
+    current_smartlock_ids = set(coordinator.data.keys())
+    
+    for device in devices:
+        # Check if the device matches our domain and has identifiers
+        for identifier in device.identifiers:
+            if identifier[0] == DOMAIN:
+                smartlock_id = int(identifier[1])
+                if smartlock_id not in current_smartlock_ids:
+                    _LOGGER.info("Removing Nuki device %s as it is no longer in the API", smartlock_id)
+                    device_registry.async_remove_device(device.id)
+                break
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""

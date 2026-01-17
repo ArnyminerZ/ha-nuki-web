@@ -51,8 +51,15 @@ class NukiBatteryCriticalSensor(CoordinatorEntity, BinarySensorEntity):
         self._attr_device_class = BinarySensorDeviceClass.BATTERY
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self._smartlock_id in self.coordinator.data
+
+    @property
     def device_info(self):
         """Return device info."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
@@ -65,6 +72,8 @@ class NukiBatteryCriticalSensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if battery is critical."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return data["state"].get("batteryCritical")
 
@@ -81,8 +90,15 @@ class NukiDoorSensor(CoordinatorEntity, BinarySensorEntity):
         self._attr_device_class = BinarySensorDeviceClass.DOOR
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self._smartlock_id in self.coordinator.data
+
+    @property
     def device_info(self):
         """Return device info."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
@@ -95,6 +111,8 @@ class NukiDoorSensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if door is open."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"].get("doorState")
         if state == DOOR_STATE_OPEN:
@@ -116,8 +134,15 @@ class NukiRingToOpenSensor(CoordinatorEntity, BinarySensorEntity):
         # No specific device class, maybe RUNNING?
         
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self._smartlock_id in self.coordinator.data
+
+    @property
     def device_info(self):
         """Return device info."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
@@ -130,6 +155,8 @@ class NukiRingToOpenSensor(CoordinatorEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if Ring to Open is active."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         state = data["state"].get("state")
         # Opener state 3 is Ring to Open Active

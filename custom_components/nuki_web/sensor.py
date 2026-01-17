@@ -42,8 +42,15 @@ class NukiBatterySensor(CoordinatorEntity, SensorEntity):
         self._attr_native_unit_of_measurement = "%"
 
     @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return super().available and self._smartlock_id in self.coordinator.data
+
+    @property
     def device_info(self):
         """Return device info."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
@@ -56,5 +63,7 @@ class NukiBatterySensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self) -> int | None:
         """Return the state of the sensor."""
+        if not self.available:
+            return None
         data = self.coordinator.data[self._smartlock_id]
         return data["state"].get("batteryCharge")
