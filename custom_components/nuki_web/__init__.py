@@ -3,7 +3,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_API_TOKEN, Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import aiohttp_client
+from homeassistant.helpers import aiohttp_client, device_registry as dr
 
 from .const import DOMAIN
 from .coordinator import NukiWebCoordinator
@@ -34,8 +34,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 def _async_reconcile_devices(hass: HomeAssistant, coordinator: NukiWebCoordinator, entry: ConfigEntry) -> None:
     """Reconcile devices with the coordinator data."""
-    device_registry = hass.helpers.device_registry.async_get(hass)
-    devices =  hass.helpers.device_registry.async_entries_for_config_entry(device_registry, entry.entry_id)
+    device_registry = dr.async_get(hass)
+    devices = dr.async_entries_for_config_entry(device_registry, entry.entry_id)
     
     # Coordinator data is a dict of smartlock_id -> data
     current_smartlock_ids = set(coordinator.data.keys())
