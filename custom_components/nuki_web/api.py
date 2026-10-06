@@ -29,6 +29,15 @@ class NukiWebApi:
                 response.raise_for_status()
             return await response.json()
 
+    async def get_logs(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """Get the latest activity logs of all smartlocks (newest first)."""
+        url = f"{API_BASE_URL}/smartlock/log"
+        async with self._session.get(
+            url, headers=self._headers, params={"limit": limit}
+        ) as response:
+            response.raise_for_status()
+            return await response.json()
+
     async def post_action(self, smartlock_id: int, action: int, option: int = 0) -> None:
         """Post an action to a smartlock."""
         url = f"{API_BASE_URL}/smartlock/{smartlock_id}/action"
@@ -38,6 +47,24 @@ class NukiWebApi:
                 _LOGGER.error("Error sending action %s to %s: %s", action, smartlock_id, response.status)
                 response.raise_for_status()
             
+    async def post_sync(self, smartlock_id: int) -> None:
+        """Ask Nuki to force a sync of a smartlock."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/sync"
+        async with self._session.post(url, headers=self._headers) as response:
+            if response.status != 204:
+                _LOGGER.error("Error syncing %s: %s", smartlock_id, response.status)
+                response.raise_for_status()
+
+    async def update_config(
+        self, smartlock_id: int, endpoint: str, body: Dict[str, Any]
+    ) -> None:
+        """Update a smartlock config section (config, advanced/config, ...)."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/{endpoint}"
+        async with self._session.post(url, headers=self._headers, json=body) as response:
+            if response.status != 204:
+                _LOGGER.error("Error updating %s of %s: %s", endpoint, smartlock_id, response.status)
+                response.raise_for_status()
+
     async def validate_token(self) -> bool:
         """Validate the API token by fetching accounts or smartlocks."""
         try:
