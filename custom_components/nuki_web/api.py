@@ -46,6 +46,16 @@ class NukiWebApi:
                 _LOGGER.error("Error syncing %s: %s", smartlock_id, response.status)
                 response.raise_for_status()
 
+    async def update_config(
+        self, smartlock_id: int, endpoint: str, body: Dict[str, Any]
+    ) -> None:
+        """Update a smartlock config section (config, advanced/config, ...)."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/{endpoint}"
+        async with self._session.post(url, headers=self._headers, json=body) as response:
+            if response.status != 204:
+                _LOGGER.error("Error updating %s of %s: %s", endpoint, smartlock_id, response.status)
+                response.raise_for_status()
+
     async def validate_token(self) -> bool:
         """Validate the API token by fetching accounts or smartlocks."""
         try:

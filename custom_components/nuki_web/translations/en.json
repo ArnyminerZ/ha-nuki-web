@@ -130,6 +130,33 @@
             },
             "continuous_mode": {
                 "name": "Continuous mode"
+            },
+            "auto_lock": {
+                "name": "Auto lock"
+            },
+            "auto_update": {
+                "name": "Auto firmware update"
+            },
+            "slow_speed_night_mode": {
+                "name": "Slow motor in night mode"
+            },
+            "button_enabled": {
+                "name": "Button"
+            },
+            "led_enabled": {
+                "name": "LED"
+            },
+            "pairing_enabled": {
+                "name": "Pairing"
+            },
+            "auto_unlatch": {
+                "name": "Auto unlatch"
+            },
+            "disable_rto_after_ring": {
+                "name": "Disable Ring to Open after ring"
+            },
+            "sound_confirmation": {
+                "name": "Confirmation sound"
             }
         },
         "button": {
@@ -141,6 +168,136 @@
             },
             "lock_n_go_unlatch": {
                 "name": "Lock 'n' go with unlatch"
+            }
+        },
+        "number": {
+            "auto_lock_timeout": {
+                "name": "Auto lock timeout"
+            },
+            "led_brightness": {
+                "name": "LED brightness"
+            },
+            "rto_timeout": {
+                "name": "Ring to Open timeout"
+            }
+        },
+        "select": {
+            "lng_timeout": {
+                "name": "Lock 'n' go timeout"
+            },
+            "unlatch_duration": {
+                "name": "Unlatch duration"
+            },
+            "motor_speed": {
+                "name": "Motor speed",
+                "state": {
+                    "standard": "Standard",
+                    "fast": "Fast",
+                    "slow": "Slow"
+                }
+            },
+            "advertising_mode": {
+                "name": "Advertising mode",
+                "state": {
+                    "automatic": "Automatic",
+                    "normal": "Normal",
+                    "slow": "Slow",
+                    "slowest": "Slowest"
+                }
+            },
+            "buzzer_volume": {
+                "name": "Buzzer volume",
+                "state": {
+                    "off": "Off",
+                    "low": "Low",
+                    "normal": "Normal"
+                }
+            },
+            "single_button_press_action": {
+                "name": "Button single press",
+                "state": {
+                    "no_action": "No action",
+                    "intelligent": "Intelligent",
+                    "unlock": "Unlock",
+                    "lock": "Lock",
+                    "unlatch": "Unlatch",
+                    "lock_n_go": "Lock 'n' go",
+                    "show_status": "Show status"
+                }
+            },
+            "double_button_press_action": {
+                "name": "Button double press",
+                "state": {
+                    "no_action": "No action",
+                    "intelligent": "Intelligent",
+                    "unlock": "Unlock",
+                    "lock": "Lock",
+                    "unlatch": "Unlatch",
+                    "lock_n_go": "Lock 'n' go",
+                    "show_status": "Show status"
+                }
+            },
+            "opener_single_button_press_action": {
+                "name": "Button single press",
+                "state": {
+                    "no_action": "No action",
+                    "toggle_rto": "Toggle RTO",
+                    "activate_rto": "Activate RTO",
+                    "deactivate_rto": "Deactivate RTO",
+                    "toggle_cm": "Toggle continuous mode",
+                    "activate_cm": "Activate continuous mode",
+                    "deactivate_cm": "Deactivate continuous mode",
+                    "open": "Open"
+                }
+            },
+            "sound_ring": {
+                "name": "Ring sound",
+                "state": {
+                    "no_sound": "No sound",
+                    "sound_1": "Sound 1",
+                    "sound_2": "Sound 2",
+                    "sound_3": "Sound 3"
+                }
+            },
+            "sound_open": {
+                "name": "Open sound",
+                "state": {
+                    "no_sound": "No sound",
+                    "sound_1": "Sound 1",
+                    "sound_2": "Sound 2",
+                    "sound_3": "Sound 3"
+                }
+            },
+            "sound_rto": {
+                "name": "Ring to Open sound",
+                "state": {
+                    "no_sound": "No sound",
+                    "sound_1": "Sound 1",
+                    "sound_2": "Sound 2",
+                    "sound_3": "Sound 3"
+                }
+            },
+            "sound_cm": {
+                "name": "Continuous mode sound",
+                "state": {
+                    "no_sound": "No sound",
+                    "sound_1": "Sound 1",
+                    "sound_2": "Sound 2",
+                    "sound_3": "Sound 3"
+                }
+            },
+            "opener_double_button_press_action": {
+                "name": "Button double press",
+                "state": {
+                    "no_action": "No action",
+                    "toggle_rto": "Toggle RTO",
+                    "activate_rto": "Activate RTO",
+                    "deactivate_rto": "Deactivate RTO",
+                    "toggle_cm": "Toggle continuous mode",
+                    "activate_cm": "Activate continuous mode",
+                    "deactivate_cm": "Deactivate continuous mode",
+                    "open": "Open"
+                }
             }
         }
     },

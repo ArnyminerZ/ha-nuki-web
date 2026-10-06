@@ -8,12 +8,18 @@ from typing import Any
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN
 from .coordinator import NukiWebCoordinator
-from .entity import NukiEntity
+from .entity import (
+    NukiConfigDescriptionMixin,
+    NukiConfigEntity,
+    NukiEntity,
+    config_value_exists,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -57,6 +63,39 @@ SWITCHES: tuple[NukiSwitchDescription, ...] = (
 )
 
 
+@dataclass(frozen=True, kw_only=True)
+class NukiConfigSwitchDescription(NukiConfigDescriptionMixin, SwitchEntityDescription):
+    """Describes a switch backed by a boolean (or 0/1) config value."""
+
+    as_int: bool = False
+
+
+def _config_switch(key: str, section: str, config_key: str, **kwargs: Any) -> NukiConfigSwitchDescription:
+    return NukiConfigSwitchDescription(
+        key=key,
+        translation_key=key,
+        entity_category=EntityCategory.CONFIG,
+        section=section,
+        config_key=config_key,
+        **kwargs,
+    )
+
+
+CONFIG_SWITCHES: tuple[NukiConfigSwitchDescription, ...] = (
+    _config_switch("auto_lock", "advanced", "autoLock"),
+    _config_switch("auto_update", "advanced", "autoUpdateEnabled"),
+    _config_switch(
+        "slow_speed_night_mode", "advanced", "enableSlowSpeedDuringNightmode"
+    ),
+    _config_switch("button_enabled", "config", "buttonEnabled"),
+    _config_switch("led_enabled", "config", "ledEnabled"),
+    _config_switch("pairing_enabled", "config", "pairingEnabled"),
+    _config_switch("auto_unlatch", "config", "autoUnlatch"),
+    _config_switch("disable_rto_after_ring", "advanced", "disableRtoAfterRing", types=(TYPE_OPENER,)),
+    _config_switch("sound_confirmation", "advanced", "soundConfirmation", types=(TYPE_OPENER,), as_int=True),
+)
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -65,12 +104,19 @@ async def async_setup_entry(
     """Set up Nuki Web switches."""
     coordinator: NukiWebCoordinator = hass.data[DOMAIN][entry.entry_id]
 
-    async_add_entities(
-        NukiSwitch(coordinator, smartlock_id, description)
-        for smartlock_id, smartlock in coordinator.data.items()
-        if smartlock.get("type") == TYPE_OPENER
-        for description in SWITCHES
-    )
+    entities: list[SwitchEntity] = []
+    for smartlock_id, smartlock in coordinator.data.items():
+        if smartlock.get("type") == TYPE_OPENER:
+            entities.extend(
+                NukiSwitch(coordinator, smartlock_id, description)
+                for description in SWITCHES
+            )
+        entities.extend(
+            NukiConfigSwitch(coordinator, smartlock_id, description)
+            for description in CONFIG_SWITCHES
+            if config_value_exists(smartlock, description)
+        )
+    async_add_entities(entities)
 
 
 class NukiSwitch(NukiEntity, SwitchEntity):
@@ -110,3 +156,23 @@ class NukiSwitch(NukiEntity, SwitchEntity):
             self._smartlock_id, self.entity_description.off_action
         )
         await self.coordinator.async_request_refresh()
+
+
+class NukiConfigSwitch(NukiConfigEntity, SwitchEntity):
+    """A switch for a boolean smartlock config value."""
+
+    entity_description: NukiConfigSwitchDescription
+
+    @property
+    def is_on(self) -> bool | None:
+        """Return true if the setting is enabled."""
+        value = self.config_value
+        return None if value is None else bool(value)
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        """Enable the setting."""
+        await self.async_set_config_value(1 if self.entity_description.as_int else True)
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        """Disable the setting."""
+        await self.async_set_config_value(0 if self.entity_description.as_int else False)
