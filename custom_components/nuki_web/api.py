@@ -29,6 +29,15 @@ class NukiWebApi:
                 response.raise_for_status()
             return await response.json()
 
+    async def get_logs(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """Get the latest activity logs of all smartlocks (newest first)."""
+        url = f"{API_BASE_URL}/smartlock/log"
+        async with self._session.get(
+            url, headers=self._headers, params={"limit": limit}
+        ) as response:
+            response.raise_for_status()
+            return await response.json()
+
     async def post_action(self, smartlock_id: int, action: int, option: int = 0) -> None:
         """Post an action to a smartlock."""
         url = f"{API_BASE_URL}/smartlock/{smartlock_id}/action"
