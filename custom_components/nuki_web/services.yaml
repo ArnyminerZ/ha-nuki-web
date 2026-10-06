@@ -1,0 +1,24 @@
+perform_action:
+  target:
+    entity:
+      integration: nuki_web
+      domain: lock
+  fields:
+    action:
+      required: true
+      selector:
+        select:
+          options:
+            - unlock
+            - lock
+            - unlatch
+            - lock_n_go
+            - lock_n_go_unlatch
+    force:
+      default: false
+      selector:
+        boolean:
+    full_lock:
+      default: false
+      selector:
+        boolean:

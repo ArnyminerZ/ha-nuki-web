@@ -38,6 +38,14 @@ class NukiWebApi:
                 _LOGGER.error("Error sending action %s to %s: %s", action, smartlock_id, response.status)
                 response.raise_for_status()
             
+    async def post_sync(self, smartlock_id: int) -> None:
+        """Ask Nuki to force a sync of a smartlock."""
+        url = f"{API_BASE_URL}/smartlock/{smartlock_id}/sync"
+        async with self._session.post(url, headers=self._headers) as response:
+            if response.status != 204:
+                _LOGGER.error("Error syncing %s: %s", smartlock_id, response.status)
+                response.raise_for_status()
+
     async def validate_token(self) -> bool:
         """Validate the API token by fetching accounts or smartlocks."""
         try:

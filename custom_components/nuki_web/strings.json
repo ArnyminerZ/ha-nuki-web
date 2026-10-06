@@ -123,6 +123,45 @@
             "server_connectivity": {
                 "name": "Nuki server connection"
             }
+        },
+        "switch": {
+            "ring_to_open_switch": {
+                "name": "Ring to Open"
+            },
+            "continuous_mode": {
+                "name": "Continuous mode"
+            }
+        },
+        "button": {
+            "sync": {
+                "name": "Sync"
+            },
+            "lock_n_go": {
+                "name": "Lock 'n' go"
+            },
+            "lock_n_go_unlatch": {
+                "name": "Lock 'n' go with unlatch"
+            }
+        }
+    },
+    "services": {
+        "perform_action": {
+            "name": "Perform action",
+            "description": "Performs a lock action, optionally forcing it or fully locking.",
+            "fields": {
+                "action": {
+                    "name": "Action",
+                    "description": "The action to perform."
+                },
+                "force": {
+                    "name": "Force",
+                    "description": "Force the action even if the lock believes it is already in that state."
+                },
+                "full_lock": {
+                    "name": "Full lock",
+                    "description": "Perform a full lock (turn the key all the way)."
+                }
+            }
         }
     }
 }

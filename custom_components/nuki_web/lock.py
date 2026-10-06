@@ -5,7 +5,10 @@ from typing import Any
 from homeassistant.components.lock import LockEntity, LockEntityFeature
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+import voluptuous as vol
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
@@ -37,6 +40,19 @@ ACTION_UNLATCH = 3
 ACTION_LOCK_N_GO = 4
 ACTION_LOCK_N_GO_UNLATCH = 5
 
+# Option mask bits
+OPTION_FORCE = 2
+OPTION_FULL_LOCK = 4
+
+SERVICE_PERFORM_ACTION = "perform_action"
+LOCK_ACTION_NAMES = {
+    "unlock": ACTION_UNLOCK,
+    "lock": ACTION_LOCK,
+    "unlatch": ACTION_UNLATCH,
+    "lock_n_go": ACTION_LOCK_N_GO,
+    "lock_n_go_unlatch": ACTION_LOCK_N_GO_UNLATCH,
+}
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -50,6 +66,17 @@ async def async_setup_entry(
         entities.append(NukiLockEntity(coordinator, smartlock_id))
     
     async_add_entities(entities)
+
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service(
+        SERVICE_PERFORM_ACTION,
+        {
+            vol.Required("action"): vol.In(list(LOCK_ACTION_NAMES)),
+            vol.Optional("force", default=False): cv.boolean,
+            vol.Optional("full_lock", default=False): cv.boolean,
+        },
+        "async_perform_action",
+    )
 
 class NukiLockEntity(NukiEntity, LockEntity):
     """Representation of a Nuki Web lock."""
@@ -74,7 +101,23 @@ class NukiLockEntity(NukiEntity, LockEntity):
         if type_id == 2: # Opener
             return state == OPENER_STATE_ONLINE
 
-        return state == STATE_LOCKED
+        if state == STATE_LOCKED:
+            return True
+        if state in (STATE_UNLOCKED, STATE_UNLATCHED, STATE_UNLOCKED_LOCKED_NO_GO):
+            return False
+        # Uncalibrated, in motion, error or undefined: unknown
+        return None
+
+    @property
+    def is_open(self) -> bool | None:
+        """Return true if the latch is unlatched / the door is being opened."""
+        if not self.available:
+            return None
+        data = self.coordinator.data[self._smartlock_id]
+        state = data["state"]["state"]
+        if data["type"] == 2:
+            return state == OPENER_STATE_OPEN
+        return state == STATE_UNLATCHED
 
     @property
     def is_locking(self) -> bool | None:
@@ -120,4 +163,16 @@ class NukiLockEntity(NukiEntity, LockEntity):
     async def async_open(self, **kwargs: Any) -> None:
         """Open the door latch."""
         await self.coordinator.api.post_action(self._smartlock_id, ACTION_UNLATCH)
+        await self.coordinator.async_request_refresh()
+
+    async def async_perform_action(
+        self, action: str, force: bool = False, full_lock: bool = False
+    ) -> None:
+        """Perform a lock action with the optional force / full lock flags."""
+        if self.coordinator.data[self._smartlock_id]["type"] == 2:
+            raise ServiceValidationError("This service is not supported by Openers")
+        option = (OPTION_FORCE if force else 0) | (OPTION_FULL_LOCK if full_lock else 0)
+        await self.coordinator.api.post_action(
+            self._smartlock_id, LOCK_ACTION_NAMES[action], option
+        )
         await self.coordinator.async_request_refresh()
