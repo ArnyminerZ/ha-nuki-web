@@ -19,6 +19,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
 
+from .activity import log_attributes
 from .const import DOMAIN, decode_firmware_version
 from .coordinator import NukiWebCoordinator
 from .entity import NukiEntity
@@ -198,6 +199,12 @@ async def async_setup_entry(
             if description.exists_fn(smartlock)
         )
 
+    if coordinator.logs_available:
+        entities.extend(
+            NukiLastActivitySensor(coordinator, smartlock_id)
+            for smartlock_id in coordinator.data
+        )
+
     async_add_entities(entities)
 
 
@@ -246,3 +253,31 @@ class NukiDescribedSensor(NukiEntity, SensorEntity):
         if not self.available:
             return None
         return self.entity_description.value_fn(self.coordinator.data[self._smartlock_id])
+
+
+class NukiLastActivitySensor(NukiEntity, SensorEntity):
+    """Timestamp of the latest activity log entry, with its details as attributes."""
+
+    def __init__(self, coordinator: NukiWebCoordinator, smartlock_id: int) -> None:
+        """Initialize."""
+        super().__init__(coordinator, smartlock_id)
+        self._attr_has_entity_name = True
+        self._attr_translation_key = "last_activity"
+        self._attr_unique_id = f"{smartlock_id}_last_activity"
+        self._attr_device_class = SensorDeviceClass.TIMESTAMP
+
+    @property
+    def _log(self) -> dict[str, Any] | None:
+        return self.coordinator.last_logs.get(self._smartlock_id)
+
+    @property
+    def native_value(self) -> datetime | None:
+        """Return when the last activity happened."""
+        log = self._log
+        return dt_util.parse_datetime(log["date"]) if log and log.get("date") else None
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return the details of the last activity."""
+        log = self._log
+        return log_attributes(log) if log else None

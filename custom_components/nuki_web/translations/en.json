@@ -93,6 +93,9 @@
             },
             "ring_to_open_end": {
                 "name": "Ring to Open ends"
+            },
+            "last_activity": {
+                "name": "Last activity"
             }
         },
         "binary_sensor": {
@@ -297,6 +300,30 @@
                     "activate_cm": "Activate continuous mode",
                     "deactivate_cm": "Deactivate continuous mode",
                     "open": "Open"
+                }
+            }
+        },
+        "event": {
+            "activity": {
+                "name": "Activity",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "unlock": "Unlock",
+                            "lock": "Lock",
+                            "unlatch": "Unlatch",
+                            "lock_n_go": "Lock 'n' go",
+                            "lock_n_go_unlatch": "Lock 'n' go with unlatch",
+                            "door_ajar": "Door ajar",
+                            "doorbell": "Doorbell",
+                            "door_opened": "Door opened",
+                            "door_closed": "Door closed",
+                            "door_sensor_jammed": "Door sensor jammed",
+                            "firmware_update": "Firmware update",
+                            "calibration": "Calibration",
+                            "action_failed": "Action failed"
+                        }
+                    }
                 }
             }
         }

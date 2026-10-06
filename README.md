@@ -12,9 +12,13 @@ This is a custom integration for Home Assistant that interacts with the Nuki Web
 ## Features
 
 *   **Platform Support**:
-    *   **Lock**: Lock, Unlock, and Open (Unlatch) your specific Nuki devices.
-    *   **Sensor**: Battery level monitoring.
-    *   **Binary Sensor**: Critical battery warnings, Door state (Open/Closed), and Ring to Open status (for Openers).
+    *   **Lock**: Lock, Unlock, and Open (Unlatch) your Nuki devices, plus a `nuki_web.perform_action` service with *force* and *full lock* options.
+    *   **Sensor**: Battery level, door state, mode, last action and trigger, firmware/hardware version, admin PIN state, Ring to Open end time (Openers) and last activity.
+    *   **Binary Sensor**: Battery critical (lock, keypad, door sensor), battery charging, door open/closed, keypad tamper, night mode, Nuki server connection and Ring to Open status (Openers).
+    *   **Switch**: Ring to Open and Continuous mode (Openers), plus settings such as auto lock, auto firmware update, button, LED and pairing.
+    *   **Number / Select**: Auto lock timeout, LED brightness, lock 'n' go timeout, unlatch duration, motor speed, advertising mode, button actions, buzzer volume and Opener sounds and Ring to Open timeout.
+    *   **Button**: Sync, Lock 'n' go and Lock 'n' go with unlatch.
+    *   **Event**: Activity log events (lock, unlock, door opened/closed, door ajar, doorbell, failed actions, ...).
 *   **Config Flow**: Easy setup via the Home Assistant UI using your Nuki Web API Token.
 *   **Polling**: Automatically updates device status every 30 seconds.
 
@@ -44,7 +48,20 @@ This is a custom integration for Home Assistant that interacts with the Nuki Web
 2.  Click **+ ADD INTEGRATION**.
 3.  Search for "Nuki Web".
 4.  Enter your **Nuki Web API Token**.
-    *   You can generate a token at [Nuki Web API](https://developer.nuki.io/). Make sure to enable the necessary permissions (Smartlock view/action, etc.).
+    *   You can generate a token at [Nuki Web API](https://developer.nuki.io/). Make sure to enable the permissions listed in [Required API token scopes](#required-api-token-scopes).
+
+### Required API token scopes
+
+The token only needs the scopes for the features you want to use. Without a scope, the matching feature will not work. The integration does not use OAuth or the Advanced API.
+
+| Scope | Needed for | Required |
+|---|---|---|
+| `smartlock.readonly` (or `smartlock`) | Listing your devices and reading their state, battery and settings | **Yes** |
+| `smartlock.action` | Lock, unlock, open, lock 'n' go, Ring to Open, Continuous mode, the `perform_action` service and the Sync button | For control |
+| `smartlock.config` | Changing settings (switches, numbers and selects in the *Configuration* category) | For settings |
+| `smartlock.log` | Activity events and the *Last activity* sensor | For activity |
+
+If the token cannot read the activity log, a warning is logged and the activity entities are not created. Everything else keeps working.
 
 ## attributes
 
