@@ -32,6 +32,7 @@ class NukiEntity(CoordinatorEntity, Entity):
             2: "Opener",
             3: "Smart Door",
             4: "Smart Lock 3.0/4. Gen",
+            5: "Smart Lock Ultra"
         }.get(device_type, f"Unknown ({device_type})")
 
         return {
