@@ -4,6 +4,22 @@ DOMAIN = "nuki_web"
 CONF_API_TOKEN = "api_token"
 API_BASE_URL = "https://api.nuki.io"
 
+# Smartlock config sections and the endpoint used to update each of them
+CONFIG_ENDPOINTS = {
+    "config": "config",
+    "advancedConfig": "advanced/config",
+    "openerAdvancedConfig": "advanced/openerconfig",
+    "smartdoorAdvancedConfig": "advanced/smartdoorconfig",
+}
+# Advanced config section used by each smartlock type
+ADVANCED_SECTIONS = {
+    0: "advancedConfig",
+    2: "openerAdvancedConfig",
+    3: "smartdoorAdvancedConfig",
+    4: "advancedConfig",
+    5: "advancedConfig",
+}
+
 # Attributes
 ATTR_BATTERY_CRITICAL = "battery_critical"
 ATTR_MODE = "mode"
