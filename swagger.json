@@ -2,7 +2,7 @@
   "swagger" : "2.0",
   "info" : {
     "description" : "The Nuki Web Api",
-    "version" : "4.4.1",
+    "version" : "4.20.0",
     "title" : "Nuki API",
     "termsOfService" : "https://nuki.io/en/service/nukis-terms-of-use-apis/",
     "contact" : {
@@ -92,13 +92,13 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Invalid E-Mail address or name supplied"
+            "description" : "Invalid email address or name supplied"
           },
           "401" : {
             "description" : "Not authorized"
           },
           "409" : {
-            "description" : "E-Mail address already exists"
+            "description" : "Email address already exists"
           }
         },
         "security" : [ {
@@ -126,7 +126,7 @@
     "/account/email/change" : {
       "post" : {
         "tags" : [ "Account" ],
-        "summary" : "Triggers the email change verification email",
+        "summary" : "Trigger the email change verification email",
         "description" : "",
         "operationId" : "AccountEmailChangeResource_post_post",
         "parameters" : [ {
@@ -160,7 +160,7 @@
     "/account/email/verify" : {
       "post" : {
         "tags" : [ "Account" ],
-        "summary" : "Triggers the email change verification email",
+        "summary" : "Trigger the email change verification email",
         "description" : "",
         "operationId" : "AccountEmailVerifyResource_post_post",
         "responses" : {
@@ -240,7 +240,7 @@
     "/account/otp" : {
       "post" : {
         "tags" : [ "Account" ],
-        "summary" : "Enables one time password for an account",
+        "summary" : "Enable one-time password for an account",
         "description" : "",
         "operationId" : "AccountOtpResource_post_post",
         "parameters" : [ {
@@ -257,10 +257,10 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "One time password empty"
+            "description" : "One-time password empty"
           },
           "401" : {
-            "description" : "Not authorized or one time password wrong"
+            "description" : "Not authorized or one-time password wrong"
           },
           "429" : {
             "description" : "Too many failed attempts"
@@ -272,7 +272,7 @@
       },
       "put" : {
         "tags" : [ "Account" ],
-        "summary" : "Create an one time password secret",
+        "summary" : "Create a one-time password secret",
         "description" : "",
         "operationId" : "AccountOtpResource_put_put",
         "responses" : {
@@ -283,7 +283,7 @@
             }
           },
           "405" : {
-            "description" : "One time password is already enabled"
+            "description" : "One-time password is already enabled"
           }
         },
         "security" : [ {
@@ -292,7 +292,7 @@
       },
       "delete" : {
         "tags" : [ "Account" ],
-        "summary" : "Disables one time password for an account",
+        "summary" : "Disable one-time password for an account",
         "description" : "",
         "operationId" : "AccountOtpResource_delete_delete",
         "responses" : {
@@ -385,7 +385,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -419,7 +419,7 @@
     "/account/sub" : {
       "get" : {
         "tags" : [ "Account" ],
-        "summary" : "Get an list of sub accounts",
+        "summary" : "Get a list of sub accounts",
         "description" : "",
         "operationId" : "AccountSubsResource_get_get",
         "parameters" : [ {
@@ -446,7 +446,7 @@
       },
       "put" : {
         "tags" : [ "Account" ],
-        "summary" : "Create an sub account",
+        "summary" : "Create a sub account",
         "description" : "",
         "operationId" : "AccountSubsResource_put_put",
         "parameters" : [ {
@@ -477,13 +477,13 @@
     "/account/sub/{accountId}" : {
       "get" : {
         "tags" : [ "Account" ],
-        "summary" : "Get an sub account",
+        "summary" : "Get a sub account",
         "description" : "",
         "operationId" : "AccountSubResource_get_get",
         "parameters" : [ {
           "name" : "accountId",
           "in" : "path",
-          "description" : "The account id",
+          "description" : "The account ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -504,7 +504,7 @@
       },
       "post" : {
         "tags" : [ "Account" ],
-        "summary" : "Update an sub account",
+        "summary" : "Update a sub account",
         "description" : "",
         "operationId" : "AccountSubResource_post_post",
         "parameters" : [ {
@@ -518,7 +518,7 @@
         }, {
           "name" : "accountId",
           "in" : "path",
-          "description" : "The account id",
+          "description" : "The account ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -533,7 +533,7 @@
             "description" : "Not authorized"
           },
           "409" : {
-            "description" : "E-Mail address already exists"
+            "description" : "Email address already exists"
           }
         },
         "security" : [ {
@@ -542,13 +542,13 @@
       },
       "delete" : {
         "tags" : [ "Account" ],
-        "summary" : "Delete an sub account",
+        "summary" : "Delete a sub account",
         "description" : "",
         "operationId" : "AccountSubResource_delete_delete",
         "parameters" : [ {
           "name" : "accountId",
           "in" : "path",
-          "description" : "The account id",
+          "description" : "The account ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -568,7 +568,7 @@
     "/account/user" : {
       "get" : {
         "tags" : [ "AccountUser" ],
-        "summary" : "Get an list of account users",
+        "summary" : "Get a list of account users",
         "description" : "",
         "operationId" : "AccountUsersResource_get_get",
         "parameters" : [ {
@@ -630,7 +630,7 @@
             }
           },
           "400" : {
-            "description" : "Invalid E-Mail address or name supplied"
+            "description" : "Invalid email address or name supplied"
           }
         },
         "security" : [ {
@@ -647,7 +647,7 @@
         "parameters" : [ {
           "name" : "accountUserId",
           "in" : "path",
-          "description" : "The account user id",
+          "description" : "The account user ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -682,7 +682,7 @@
         }, {
           "name" : "accountUserId",
           "in" : "path",
-          "description" : "The account user id",
+          "description" : "The account user ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -697,13 +697,13 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Invalid E-Mail address or name supplied"
+            "description" : "Invalid email address or name supplied"
           },
           "401" : {
             "description" : "Not authorized"
           },
           "409" : {
-            "description" : "E-Mail address already exists"
+            "description" : "Email address already exists"
           }
         },
         "security" : [ {
@@ -712,13 +712,13 @@
       },
       "delete" : {
         "tags" : [ "AccountUser" ],
-        "summary" : "Deletes asynchronous an account user",
+        "summary" : "Delete an account user asynchronously",
         "description" : "",
         "operationId" : "AccountUserResource_delete_delete",
         "parameters" : [ {
           "name" : "accountUserId",
           "in" : "path",
-          "description" : "The account user id",
+          "description" : "The account user ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -784,7 +784,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -795,13 +795,13 @@
     "/address/token/{id}" : {
       "get" : {
         "tags" : [ "AddressToken" ],
-        "summary" : "Gives some info about address token",
+        "summary" : "Get info about an address token",
         "description" : "",
         "operationId" : "AddressTokenResource_get_get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "The token id",
+          "description" : "The token ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -827,13 +827,13 @@
     "/address/token/{id}/redeem" : {
       "get" : {
         "tags" : [ "AddressToken" ],
-        "summary" : "Gives an redeemed address token",
+        "summary" : "Get a redeemed address token",
         "description" : "",
         "operationId" : "AddressTokenRedeemResource_get_get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "The token id",
+          "description" : "The token ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -857,19 +857,19 @@
       },
       "post" : {
         "tags" : [ "AddressToken" ],
-        "summary" : "Redeems an address token",
+        "summary" : "Redeem an address token",
         "description" : "",
         "operationId" : "AddressTokenRedeemResource_post_post",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
-          "description" : "The token id",
+          "description" : "The token ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "email",
           "in" : "query",
-          "description" : "If false no email will be send",
+          "description" : "If false, no email will be sent",
           "required" : false,
           "type" : "boolean"
         } ],
@@ -909,7 +909,7 @@
         }, {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -918,7 +918,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -939,7 +939,7 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -965,7 +965,7 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -997,13 +997,13 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The address reservation id",
+          "description" : "The address reservation ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1012,7 +1012,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1032,13 +1032,13 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The address reservation id",
+          "description" : "The address reservation ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1047,7 +1047,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1075,13 +1075,13 @@
         }, {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The reservation id",
+          "description" : "The reservation ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1090,7 +1090,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1110,7 +1110,7 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1125,7 +1125,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1142,7 +1142,7 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1157,7 +1157,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1183,7 +1183,7 @@
         }, {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1195,7 +1195,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1210,7 +1210,7 @@
       },
       "delete" : {
         "tags" : [ "Address" ],
-        "summary" : "Deletes address units asynchronously",
+        "summary" : "Delete address units asynchronously",
         "description" : "",
         "operationId" : "AddressUnitsResource_delete_delete",
         "parameters" : [ {
@@ -1227,7 +1227,7 @@
         }, {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1265,13 +1265,13 @@
         "parameters" : [ {
           "name" : "addressId",
           "in" : "path",
-          "description" : "The address id",
+          "description" : "The address ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The address unit id",
+          "description" : "The address unit ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1346,7 +1346,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1392,7 +1392,7 @@
     "/api/key" : {
       "get" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Get a list of api keys",
+        "summary" : "Get a list of API keys",
         "description" : "",
         "operationId" : "ApiKeysResource_get_get",
         "responses" : {
@@ -1415,7 +1415,7 @@
       },
       "put" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Create an api key",
+        "summary" : "Create an API key",
         "description" : "",
         "operationId" : "ApiKeysResource_put_put",
         "parameters" : [ {
@@ -1435,7 +1435,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1449,7 +1449,7 @@
     "/api/key/{apiKeyId}" : {
       "post" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Update an api key",
+        "summary" : "Update an API key",
         "description" : "",
         "operationId" : "ApiKeyResource_post_post",
         "parameters" : [ {
@@ -1463,7 +1463,7 @@
         }, {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1476,6 +1476,9 @@
           },
           "401" : {
             "description" : "Not authorized"
+          },
+          "503" : {
+            "description" : "The change was stored but could not be propagated to the authorization server. Retry the request."
           }
         },
         "security" : [ {
@@ -1484,13 +1487,13 @@
       },
       "delete" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Delete an api key",
+        "summary" : "Delete an API key",
         "description" : "",
         "operationId" : "ApiKeyResource_delete_delete",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1510,13 +1513,13 @@
     "/api/key/{apiKeyId}/advanced" : {
       "get" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Get an advanced api key",
+        "summary" : "Get an advanced API key",
         "description" : "",
         "operationId" : "ApiKeyAdvancedResource_get_get",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1543,7 +1546,7 @@
       },
       "post" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Update an advanced api key",
+        "summary" : "Update an advanced API key",
         "description" : "",
         "operationId" : "ApiKeyAdvancedResource_post_post",
         "parameters" : [ {
@@ -1557,7 +1560,7 @@
         }, {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1566,7 +1569,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1578,7 +1581,7 @@
       },
       "put" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Create an advanced api key",
+        "summary" : "Create an advanced API key",
         "description" : "",
         "operationId" : "ApiKeyAdvancedResource_put_put",
         "parameters" : [ {
@@ -1592,7 +1595,7 @@
         }, {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1601,7 +1604,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1613,13 +1616,13 @@
       },
       "delete" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Delete an advanced api key",
+        "summary" : "Delete an advanced API key",
         "description" : "",
         "operationId" : "ApiKeyAdvancedResource_delete_delete",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1639,13 +1642,13 @@
     "/api/key/{apiKeyId}/advanced/reactivate" : {
       "post" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Reactivates a deactivated advanced webhook integration",
+        "summary" : "Reactivate a deactivated advanced webhook integration",
         "description" : "",
         "operationId" : "ApiKeyAdvancedReactivateResource_post_post",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1654,7 +1657,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1668,13 +1671,13 @@
     "/api/key/{apiKeyId}/token" : {
       "get" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Get a list of api key tokens",
+        "summary" : "Get a list of API key tokens",
         "description" : "",
         "operationId" : "ApiKeyTokensResource_get_get",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1698,7 +1701,7 @@
       },
       "put" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Create an api key token",
+        "summary" : "Create an API key token",
         "description" : "",
         "operationId" : "ApiKeyTokensResource_put_put",
         "parameters" : [ {
@@ -1712,7 +1715,7 @@
         }, {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -1724,7 +1727,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -1738,7 +1741,7 @@
     "/api/key/{apiKeyId}/token/{id}" : {
       "post" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Update an api key token",
+        "summary" : "Update an API key token",
         "description" : "",
         "operationId" : "ApiKeyTokenResource_post_post",
         "parameters" : [ {
@@ -1752,13 +1755,13 @@
         }, {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The api key token id",
+          "description" : "The API key token ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1779,19 +1782,19 @@
       },
       "delete" : {
         "tags" : [ "ApiKey" ],
-        "summary" : "Delete an api key token",
+        "summary" : "Delete an API key token",
         "description" : "",
         "operationId" : "ApiKeyTokenResource_delete_delete",
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The api key token id",
+          "description" : "The API key token ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1817,7 +1820,7 @@
         "parameters" : [ {
           "name" : "apiKeyId",
           "in" : "path",
-          "description" : "The api key id",
+          "description" : "The API key ID",
           "required" : true,
           "type" : "integer"
         }, {
@@ -1856,7 +1859,7 @@
     "/bulk-web-config" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates the web config for a group of smartlocks",
+        "summary" : "Update the web config for a group of smartlocks",
         "description" : "",
         "operationId" : "SmartlockBulkWebConfigResource_post_post",
         "parameters" : [ {
@@ -1887,7 +1890,7 @@
     "/company" : {
       "get" : {
         "tags" : [ "Company" ],
-        "summary" : "Get an list of companies",
+        "summary" : "Get a list of companies",
         "description" : "",
         "operationId" : "CompaniesResource_get_get",
         "responses" : {
@@ -1965,7 +1968,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2229,7 +2232,7 @@
         "parameters" : [ {
           "name" : "serviceId",
           "in" : "path",
-          "description" : "The service id",
+          "description" : "The service ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2252,13 +2255,13 @@
     "/service/{serviceId}/link" : {
       "post" : {
         "tags" : [ "Service" ],
-        "summary" : "Links a service",
+        "summary" : "Link a service",
         "description" : "",
         "operationId" : "ServiceLinkResource_post_post",
         "parameters" : [ {
           "name" : "serviceId",
           "in" : "path",
-          "description" : "The service id",
+          "description" : "The service ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2270,7 +2273,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2284,13 +2287,13 @@
     "/service/{serviceId}/sync" : {
       "post" : {
         "tags" : [ "Service" ],
-        "summary" : "Syncs a service",
+        "summary" : "Sync a service",
         "description" : "",
         "operationId" : "ServiceSyncResource_post_post",
         "parameters" : [ {
           "name" : "serviceId",
           "in" : "path",
-          "description" : "The service id",
+          "description" : "The service ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2299,7 +2302,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2313,13 +2316,13 @@
     "/service/{serviceId}/unlink" : {
       "post" : {
         "tags" : [ "Service" ],
-        "summary" : "Unlinks a service",
+        "summary" : "Unlink a service",
         "description" : "",
         "operationId" : "ServiceUnlinkResource_post_post",
         "parameters" : [ {
           "name" : "serviceId",
           "in" : "path",
-          "description" : "The service id",
+          "description" : "The service ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2328,7 +2331,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2416,7 +2419,7 @@
       },
       "post" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Updates smartlock authorizations asynchronously",
+        "summary" : "Update smartlock authorizations asynchronously",
         "description" : "",
         "operationId" : "SmartlocksAuthsResource_post_post",
         "parameters" : [ {
@@ -2457,7 +2460,7 @@
       },
       "put" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Creates asynchronous smartlock authorizations",
+        "summary" : "Create smartlock authorizations asynchronously",
         "description" : "",
         "operationId" : "SmartlocksAuthsResource_put_put",
         "parameters" : [ {
@@ -2477,7 +2480,7 @@
             "description" : "Bad parameter"
           },
           "402" : {
-            "description" : "Account not payed"
+            "description" : "Account not paid"
           },
           "409" : {
             "description" : "Parameter conflicts"
@@ -2492,7 +2495,7 @@
       },
       "delete" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Deletes smartlock authorizations asynchronously",
+        "summary" : "Delete smartlock authorizations asynchronously",
         "description" : "",
         "operationId" : "SmartlocksAuthsResource_delete_delete",
         "parameters" : [ {
@@ -2532,7 +2535,7 @@
     "/smartlock/auth/advanced" : {
       "put" : {
         "tags" : [ "AdvancedApi" ],
-        "summary" : "Creates asynchronous smartlock authorizations",
+        "summary" : "Create smartlock authorizations asynchronously",
         "description" : "",
         "operationId" : "SmartlockAuthsAdvancedResource_put_put",
         "parameters" : [ {
@@ -2555,7 +2558,7 @@
             "description" : "Bad parameter"
           },
           "402" : {
-            "description" : "Account not payed"
+            "description" : "Account not paid"
           },
           "409" : {
             "description" : "Parameter conflicts"
@@ -2690,7 +2693,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -2731,7 +2734,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -2761,7 +2764,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -2801,7 +2804,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2810,13 +2813,13 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
           },
           "402" : {
-            "description" : "Account not payed"
+            "description" : "Account not paid"
           }
         },
         "security" : [ {
@@ -2827,7 +2830,7 @@
     "/smartlock/{smartlockId}/action/advanced" : {
       "post" : {
         "tags" : [ "AdvancedApi" ],
-        "summary" : "Smartlock Action with Callback",
+        "summary" : "Lock & unlock a smartlock with callback",
         "description" : "",
         "operationId" : "SmartlockActionAdvancedResource_action_post",
         "parameters" : [ {
@@ -2841,7 +2844,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2856,7 +2859,7 @@
             "description" : "Bad parameter"
           },
           "402" : {
-            "description" : "Account not payed"
+            "description" : "Account not paid"
           },
           "409" : {
             "description" : "Parameter conflicts"
@@ -2879,7 +2882,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2888,7 +2891,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2911,7 +2914,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2923,7 +2926,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2946,7 +2949,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2955,7 +2958,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -2978,7 +2981,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -2990,7 +2993,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -3007,7 +3010,7 @@
     "/smartlock/{smartlockId}/admin/pin" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates a smartlock admin pin",
+        "summary" : "Update a smartlock admin PIN",
         "description" : "",
         "operationId" : "SmartlockAdminPinResource_post_post",
         "parameters" : [ {
@@ -3021,7 +3024,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3044,7 +3047,7 @@
     "/smartlock/{smartlockId}/advanced/config" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates a smartlock advanced config",
+        "summary" : "Update a smartlock advanced config",
         "description" : "",
         "operationId" : "SmartlockAdvancedConfigResource_post_post",
         "parameters" : [ {
@@ -3058,7 +3061,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3081,7 +3084,7 @@
     "/smartlock/{smartlockId}/advanced/openerconfig" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates an opener advanced config",
+        "summary" : "Update an opener advanced config",
         "description" : "",
         "operationId" : "SmartlockOpenerAdvancedConfigResource_post_post",
         "parameters" : [ {
@@ -3095,7 +3098,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock (opener) id",
+          "description" : "The smartlock (opener) ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3118,7 +3121,7 @@
     "/smartlock/{smartlockId}/advanced/smartdoorconfig" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates a smartdoor advanced config",
+        "summary" : "Update a smartdoor advanced config",
         "description" : "",
         "operationId" : "SmartdoorAdvancedConfigResource_post_post",
         "parameters" : [ {
@@ -3132,7 +3135,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartdoor id",
+          "description" : "The smartdoor ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3161,7 +3164,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         }, {
@@ -3170,6 +3173,12 @@
           "description" : "Filter for smartlock authorization's types (comma-separated eg: 0,2,3)",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "includeEmail",
+          "in" : "query",
+          "description" : "Indicates if email should be included in the response",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -3194,7 +3203,7 @@
       },
       "put" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Creates asynchronous a smartlock authorization",
+        "summary" : "Create a smartlock authorization asynchronously",
         "description" : "",
         "operationId" : "SmartlockAuthsResource_put_put",
         "parameters" : [ {
@@ -3208,7 +3217,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3220,7 +3229,7 @@
             "description" : "Bad parameter"
           },
           "402" : {
-            "description" : "Account not payed"
+            "description" : "Account not paid"
           },
           "409" : {
             "description" : "Parameter conflicts"
@@ -3251,7 +3260,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3272,7 +3281,7 @@
             "description" : "Forbidden"
           },
           "404" : {
-            "description" : "Id not found"
+            "description" : "Not found"
           }
         },
         "security" : [ {
@@ -3289,13 +3298,13 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The smartlock auth unique id",
+          "description" : "The smartlock auth unique ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -3319,7 +3328,7 @@
       },
       "post" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Updates asynchronous a smartlock authorization",
+        "summary" : "Update a smartlock authorization asynchronously",
         "description" : "",
         "operationId" : "SmartlockAuthResource_post_post",
         "parameters" : [ {
@@ -3333,13 +3342,13 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The smartlock authorization unique id",
+          "description" : "The smartlock authorization unique ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -3369,19 +3378,19 @@
       },
       "delete" : {
         "tags" : [ "SmartlockAuth" ],
-        "summary" : "Deletes asynchronous a smartlock authorization",
+        "summary" : "Delete a smartlock authorization asynchronously",
         "description" : "",
         "operationId" : "SmartlockAuthResource_delete_delete",
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         }, {
           "name" : "id",
           "in" : "path",
-          "description" : "The smartlock authorization unique id",
+          "description" : "The smartlock authorization unique ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -3407,7 +3416,7 @@
     "/smartlock/{smartlockId}/config" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates a smartlock config",
+        "summary" : "Update a smartlock config",
         "description" : "",
         "operationId" : "SmartlockConfigResource_post_post",
         "parameters" : [ {
@@ -3421,7 +3430,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3450,7 +3459,7 @@
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         }, {
@@ -3519,13 +3528,13 @@
     "/smartlock/{smartlockId}/sync" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Syncs a smartlock",
+        "summary" : "Sync a smartlock",
         "description" : "",
         "operationId" : "SmartlockSyncResource_post_post",
         "parameters" : [ {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -3534,7 +3543,7 @@
             "description" : "Ok"
           },
           "400" : {
-            "description" : "Bad Parameter"
+            "description" : "Bad parameter"
           },
           "401" : {
             "description" : "Not authorized"
@@ -3548,7 +3557,7 @@
     "/smartlock/{smartlockId}/web/config" : {
       "post" : {
         "tags" : [ "Smartlock" ],
-        "summary" : "Updates a smartlock web config",
+        "summary" : "Update a smartlock web config",
         "description" : "",
         "operationId" : "SmartlockWebConfigResource_post_post",
         "parameters" : [ {
@@ -3562,7 +3571,7 @@
         }, {
           "name" : "smartlockId",
           "in" : "path",
-          "description" : "The smartlock id",
+          "description" : "The smartlock ID",
           "required" : true,
           "type" : "integer"
         } ],
@@ -3883,6 +3892,14 @@
         "nukiClubDismissed" : {
           "type" : "boolean",
           "description" : "If true, Nuki Club info is dismissed and no banner is shown"
+        },
+        "annotations" : {
+          "type" : "object",
+          "example" : "{\"web.nuki.io/nfcBannerDismissed\": true}",
+          "description" : "Additional generic settings. Key/Value Pair, key consists of a prefix (DNS subdomain) and a name (can contains alphanumeric characters with dashes, underscores and dots in between) separated by a dash (\"/\")",
+          "additionalProperties" : {
+            "type" : "object"
+          }
         },
         "removedStaledDevices" : {
           "type" : "array",
@@ -4271,10 +4288,10 @@
         "hasCustomAccessTimes" : {
           "type" : "boolean"
         },
-        "currentlyRevokingAuth" : {
+        "currentlyIssuingAuth" : {
           "type" : "boolean"
         },
-        "currentlyIssuingAuth" : {
+        "currentlyRevokingAuth" : {
           "type" : "boolean"
         }
       }
@@ -4449,7 +4466,7 @@
       "properties" : {
         "name" : {
           "type" : "string",
-          "description" : "The name of the company for which you apply for access"
+          "description" : "The name of the company for which you apply for access. Only the first 17 characters of your integration's name will be visible in the device's activity log."
         },
         "country" : {
           "type" : "string",
@@ -4522,7 +4539,7 @@
       "properties" : {
         "name" : {
           "type" : "string",
-          "description" : "The name of the company for which you apply for access"
+          "description" : "The name of the company for which you apply for access. Only the first 17 characters of your integration's name will be visible in the device's activity log."
         },
         "country" : {
           "type" : "string",
@@ -4894,11 +4911,11 @@
         "logger" : {
           "$ref" : "#/definitions/Logger"
         },
-        "application" : {
-          "$ref" : "#/definitions/Application"
-        },
         "stopped" : {
           "type" : "boolean"
+        },
+        "application" : {
+          "$ref" : "#/definitions/Application"
         }
       }
     },
@@ -6522,6 +6539,9 @@
         "extensions" : {
           "type" : "string"
         },
+        "identifier" : {
+          "type" : "string"
+        },
         "matrix" : {
           "type" : "string"
         },
@@ -6585,9 +6605,6 @@
         },
         "hierarchical" : {
           "type" : "boolean"
-        },
-        "identifier" : {
-          "type" : "string"
         }
       }
     },
@@ -6792,14 +6809,14 @@
         "synchronous" : {
           "type" : "boolean"
         },
-        "entityAsText" : {
-          "type" : "string"
-        },
         "headers" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/Header"
           }
+        },
+        "entityAsText" : {
+          "type" : "string"
         }
       }
     },
@@ -6974,17 +6991,17 @@
         "provisional" : {
           "type" : "boolean"
         },
-        "entityAvailable" : {
-          "type" : "boolean"
-        },
-        "entityAsText" : {
-          "type" : "string"
-        },
         "headers" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/Header"
           }
+        },
+        "entityAvailable" : {
+          "type" : "boolean"
+        },
+        "entityAsText" : {
+          "type" : "string"
         }
       }
     },
@@ -7012,11 +7029,11 @@
         "logger" : {
           "$ref" : "#/definitions/Logger"
         },
-        "application" : {
-          "$ref" : "#/definitions/Application"
-        },
         "stopped" : {
           "type" : "boolean"
+        },
+        "application" : {
+          "$ref" : "#/definitions/Application"
         }
       }
     },
@@ -7199,7 +7216,7 @@
         "type" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The type: 0 .. keyturner, 1 .. box, 2 .. opener, 3 .. smartdoor, 4 .. smartlock 3.0/4. Gen"
+          "description" : "The type: 0 .. Smartlock 1/2, 1 .. Box, 2 .. Opener, 3 .. Smartdoor, 4 .. Smartlock 3/4, 5 .. Smartlock 5"
         },
         "lmType" : {
           "type" : "integer",
@@ -7839,6 +7856,13 @@
           "minimum" : 0,
           "maximum" : 255
         },
+        "keypadMountingState" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The keypad mounting state: 0 .. unknown/disabled/n.a., 1 .. mounted, 2 .. moved (dismounted), 255 .. error (theft detection) (only available for supported devices)",
+          "minimum" : 0,
+          "maximum" : 255
+        },
         "ringToOpenTimer" : {
           "type" : "integer",
           "format" : "int32",
@@ -8264,8 +8288,8 @@
         "deviceType" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The device type: 0 .. smartlock and box, 2 .. opener, 3 .. smartdoor",
-          "enum" : [ 0, 2, 3 ]
+          "description" : "The device type: 0 .. Smartlock 1/2 + Box, 2 .. Opener, 3 .. Smartdoor, 4 .. Smartlock 3/4, 5 .. Smartlock 5",
+          "enum" : [ 0, 2, 3, 4, 5 ]
         },
         "accountUserId" : {
           "type" : "integer",
@@ -8290,14 +8314,14 @@
         "trigger" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web, 5 .. app, 6 .. auto lock, 7 .. accessory, 255 .. keypad",
+          "description" : "The trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web, 5 .. app, 6 .. auto lock, 7 .. accessory, 253 .. keypad error, 254 .. nuki mode, 255 .. keypad",
           "minimum" : 0,
           "maximum" : 255
         },
         "state" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error",
+          "description" : "The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error\nFor source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown",
           "minimum" : 1,
           "maximum" : 255
         },

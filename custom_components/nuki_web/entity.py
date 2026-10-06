@@ -2,7 +2,7 @@
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import Entity
 
-from .const import DOMAIN
+from .const import DOMAIN, decode_firmware_version
 from .coordinator import NukiWebCoordinator
 
 class NukiEntity(CoordinatorEntity, Entity):
@@ -32,12 +32,21 @@ class NukiEntity(CoordinatorEntity, Entity):
             2: "Opener",
             3: "Smart Door",
             4: "Smart Lock 3.0/4. Gen",
+            5: "Smart Lock Ultra"
         }.get(device_type, f"Unknown ({device_type})")
+
+        # Smartlock 5 variants
+        if device_type == 5:
+            variant = {1: "Go", 2: "Pro", 3: "Ultra"}.get(
+                (data.get("config") or {}).get("productVariant")
+            )
+            if variant:
+                device_type_name = f"Smart Lock {variant}"
 
         return {
             "identifiers": {(DOMAIN, str(self._smartlock_id))},
             "name": data["name"],
             "manufacturer": "Nuki",
             "model": device_type_name,
-            "sw_version": str(data.get("firmwareVersion")),
+            "sw_version": decode_firmware_version(data.get("firmwareVersion")),
         }

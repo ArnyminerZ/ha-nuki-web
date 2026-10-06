@@ -1,7 +1,16 @@
 """Binary Sensor platform for Nuki Web."""
 import logging
 
-from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorDeviceClass
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any
+
+from homeassistant.components.binary_sensor import (
+    BinarySensorDeviceClass,
+    BinarySensorEntity,
+    BinarySensorEntityDescription,
+)
+from homeassistant.const import EntityCategory
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -15,6 +24,89 @@ _LOGGER = logging.getLogger(__name__)
 
 DOOR_STATE_CLOSED = 2
 DOOR_STATE_OPEN = 3
+
+KEYPAD_MOUNTING_MOVED = 2
+KEYPAD_MOUNTING_ERROR = 255
+SERVER_STATE_OK = 0
+
+
+def _has_state(key: str) -> Callable[[dict[str, Any]], bool]:
+    return lambda data: key in data["state"]
+
+
+def _keypad_paired(data: dict[str, Any]) -> bool:
+    config = data.get("config") or {}
+    return (
+        "keypadBatteryCritical" in data["state"]
+        or bool(config.get("keypadPaired"))
+        or bool(config.get("keypad2Paired"))
+    )
+
+
+@dataclass(frozen=True, kw_only=True)
+class NukiBinarySensorDescription(BinarySensorEntityDescription):
+    """Describes a Nuki Web binary sensor."""
+
+    value_fn: Callable[[dict[str, Any]], bool | None]
+    exists_fn: Callable[[dict[str, Any]], bool] = lambda data: True
+
+
+BINARY_SENSORS: tuple[NukiBinarySensorDescription, ...] = (
+    NukiBinarySensorDescription(
+        key="keypad_battery_critical",
+        translation_key="keypad_battery_critical",
+        device_class=BinarySensorDeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda data: data["state"].get("keypadBatteryCritical"),
+        exists_fn=_keypad_paired,
+    ),
+    NukiBinarySensorDescription(
+        key="doorsensor_battery_critical",
+        translation_key="doorsensor_battery_critical",
+        device_class=BinarySensorDeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda data: data["state"].get("doorsensorBatteryCritical"),
+        exists_fn=_has_state("doorsensorBatteryCritical"),
+    ),
+    NukiBinarySensorDescription(
+        key="battery_charging",
+        translation_key="battery_charging",
+        device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
+        value_fn=lambda data: data["state"].get("batteryCharging"),
+        exists_fn=_has_state("batteryCharging"),
+    ),
+    NukiBinarySensorDescription(
+        key="keypad_tamper",
+        translation_key="keypad_tamper",
+        device_class=BinarySensorDeviceClass.TAMPER,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda data: (
+            None
+            if data["state"].get("keypadMountingState") is None
+            else data["state"]["keypadMountingState"]
+            in (KEYPAD_MOUNTING_MOVED, KEYPAD_MOUNTING_ERROR)
+        ),
+        exists_fn=_has_state("keypadMountingState"),
+    ),
+    NukiBinarySensorDescription(
+        key="night_mode",
+        translation_key="night_mode",
+        value_fn=lambda data: data["state"].get("nightMode"),
+        exists_fn=_has_state("nightMode"),
+    ),
+    NukiBinarySensorDescription(
+        key="server_connectivity",
+        translation_key="server_connectivity",
+        device_class=BinarySensorDeviceClass.CONNECTIVITY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda data: (
+            None
+            if data.get("serverState") is None
+            else data["serverState"] == SERVER_STATE_OK
+        ),
+        exists_fn=lambda data: "serverState" in data,
+    ),
+)
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -102,3 +194,28 @@ class NukiRingToOpenSensor(NukiEntity, BinarySensorEntity):
         state = data["state"].get("state")
         # Opener state 3 is Ring to Open Active
         return state == 3
+
+
+class NukiDescribedBinarySensor(NukiEntity, BinarySensorEntity):
+    """A Nuki Web binary sensor defined by an entity description."""
+
+    entity_description: NukiBinarySensorDescription
+
+    def __init__(
+        self,
+        coordinator: NukiWebCoordinator,
+        smartlock_id: int,
+        description: NukiBinarySensorDescription,
+    ) -> None:
+        """Initialize."""
+        super().__init__(coordinator, smartlock_id)
+        self.entity_description = description
+        self._attr_has_entity_name = True
+        self._attr_unique_id = f"{smartlock_id}_{description.key}"
+
+    @property
+    def is_on(self) -> bool | None:
+        """Return the sensor state."""
+        if not self.available:
+            return None
+        return self.entity_description.value_fn(self.coordinator.data[self._smartlock_id])
