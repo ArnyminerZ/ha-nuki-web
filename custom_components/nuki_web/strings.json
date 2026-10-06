@@ -123,6 +123,19 @@
             "server_connectivity": {
                 "name": "Nuki server connection"
             }
+        },
+        "switch": {
+            "ring_to_open_switch": {
+                "name": "Ring to Open"
+            },
+            "continuous_mode": {
+                "name": "Continuous mode"
+            }
+        },
+        "button": {
+            "sync": {
+                "name": "Sync"
+            }
         }
     }
 }

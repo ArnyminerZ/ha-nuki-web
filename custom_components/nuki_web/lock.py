@@ -74,7 +74,23 @@ class NukiLockEntity(NukiEntity, LockEntity):
         if type_id == 2: # Opener
             return state == OPENER_STATE_ONLINE
 
-        return state == STATE_LOCKED
+        if state == STATE_LOCKED:
+            return True
+        if state in (STATE_UNLOCKED, STATE_UNLATCHED, STATE_UNLOCKED_LOCKED_NO_GO):
+            return False
+        # Uncalibrated, in motion, error or undefined: unknown
+        return None
+
+    @property
+    def is_open(self) -> bool | None:
+        """Return true if the latch is unlatched / the door is being opened."""
+        if not self.available:
+            return None
+        data = self.coordinator.data[self._smartlock_id]
+        state = data["state"]["state"]
+        if data["type"] == 2:
+            return state == OPENER_STATE_OPEN
+        return state == STATE_UNLATCHED
 
     @property
     def is_locking(self) -> bool | None:
