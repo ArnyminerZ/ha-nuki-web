@@ -1,6 +1,7 @@
 {
   "domain": "nuki_web",
   "name": "Nuki Web",
+  "categories": ["security_safety.locks_access"],
   "codeowners": [],
   "config_flow": true,
   "documentation": "https://github.com/arnyminerz/ha-nuki-web",
